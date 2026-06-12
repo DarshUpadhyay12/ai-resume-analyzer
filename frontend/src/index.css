@@ -1,32 +1,54 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50: #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
+  /* Rich Dark Blue / Cyan Theme */
+  --color-primary-50: #ecfeff;
+  --color-primary-100: #cffafe;
+  --color-primary-200: #a5f3fc;
+  --color-primary-300: #67e8f9;
+  --color-primary-400: #22d3ee;
+  --color-primary-500: #06b6d4;
+  --color-primary-600: #0891b2;
+  --color-primary-700: #0e7490;
+  --color-primary-800: #155e75;
+  --color-primary-900: #164e63;
+  --color-primary-950: #083344;
+  
+  --color-dark-950: #020617; /* Slate 950 */
+  --color-dark-900: #0f172a; /* Slate 900 */
+  --color-dark-800: #1e293b; /* Slate 800 */
+  --color-dark-700: #334155; /* Slate 700 */
 
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
 }
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 antialiased;
+    @apply bg-dark-950 text-slate-300 antialiased selection:bg-primary-500/30 selection:text-primary-200;
+  }
+  
+  /* Make scrollbar look premium */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-950;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-800 rounded-full hover:bg-dark-700 transition-colors;
   }
 }
 
 .glass-panel {
-  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl;
+  @apply bg-dark-900/80 backdrop-blur-xl border border-white/10 shadow-2xl rounded-3xl;
+}
+
+.glass-panel-hover {
+  @apply glass-panel hover:border-primary-500/30 hover:shadow-primary-500/10 hover:-translate-y-1 transition-all duration-300;
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-violet-600;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-cyan-300 to-blue-500;
 }
 
 @media print {
@@ -37,19 +59,24 @@
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    zoom: 0.85; /* Scale down content */
+    zoom: 0.85; 
     background-color: white !important;
+    color: black !important;
   }
   .glass-panel {
+    background: white !important;
+    color: black !important;
     page-break-inside: avoid;
     break-inside: avoid;
     box-shadow: none !important;
     border: 1px solid #e2e8f0;
     margin-bottom: 1rem !important;
   }
-  /* Remove excessive padding to save space */
   .max-w-6xl {
     padding: 0 !important;
     margin: 0 !important;
+  }
+  .text-slate-300, .text-slate-400 {
+    color: #475569 !important;
   }
 }
