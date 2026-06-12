@@ -185,7 +185,8 @@ export default function Analysis() {
                 btn.innerText = 'Calculating...';
                 btn.disabled = true;
                 try {
-                  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+                  const baseUrl = import.meta.env.VITE_API_URL || 'https://ai-resume-analyzer-1-i0l2.onrender.com';
+                  const apiUrl = baseUrl.replace(/\/$/, '');
                   const res = await fetch(`${apiUrl}/api/v1/jobs/match`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

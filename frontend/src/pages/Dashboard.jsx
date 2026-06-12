@@ -56,7 +56,8 @@ export default function Dashboard() {
     try {
       // Dummy user id for now since auth isn't wired in frontend yet
       // In production, we'd pass the Bearer token in headers
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const baseUrl = import.meta.env.VITE_API_URL || 'https://ai-resume-analyzer-1-i0l2.onrender.com';
+      const apiUrl = baseUrl.replace(/\/$/, '');
       const response = await axios.post(`${apiUrl}/api/v1/resume/analyze`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
