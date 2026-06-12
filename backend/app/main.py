@@ -32,6 +32,19 @@ async def analyze_resume(file: UploadFile = File(...)):
     
     if file.filename.endswith('.pdf'):
         parsed_data = parse_resume(content)
+        
+        # Validate if the document is actually a resume
+        sections = parsed_data.get("sections_found", {})
+        has_sections = any(sections.values())
+        has_skills = len(parsed_data.get("skills", [])) > 0
+        text_len = parsed_data.get("raw_text_length", 0)
+        
+        if text_len < 50:
+            raise HTTPException(status_code=400, detail="Document is empty or cannot be read. Please upload a valid PDF resume.")
+            
+        if not has_sections and not has_skills:
+            raise HTTPException(status_code=400, detail="This document does not appear to be a resume. Please upload a valid resume.")
+            
     else:
         raise HTTPException(status_code=501, detail="DOCX support is coming soon. Please upload a PDF.")
     
